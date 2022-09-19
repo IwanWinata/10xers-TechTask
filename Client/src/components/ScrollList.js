@@ -65,7 +65,7 @@ const ScrollList = ({ el, fetchMyList }) => {
       <p className="text-orange-500 text-4xl font-bold mb-1 text-center mt-10">
         {el.name}
       </p>
-      <div className="w-5/6 flex relative items-center m-auto shadow-lg border mb-10">
+      <div className="w-5/6 flex relative items-center m-auto shadow-lg border mb-10 rounded-lg">
         <MdChevronLeft onClick={scrollLeft} size={40} />
         <div
           id={`scrollGenre${el.id}`}
@@ -78,11 +78,11 @@ const ScrollList = ({ el, fetchMyList }) => {
             >
               <div className="w-full h-full object-contain cursor-pointer group-hover:my-rotate-y-180 preserve-3d ease-in-out duration-1000">
                 <img
-                  className="absolute w-full h-full backface-hidden border-2"
+                  className="absolute w-full h-full backface-hidden border-2 rounded-lg"
                   src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${el.backdrop_path}`}
                   alt="/"
                 />
-                <div className="absolute my-rotate-y-180 w-full h-full backface-hidden bg-gray-200">
+                <div className="absolute my-rotate-y-180 w-full h-full backface-hidden bg-gray-200 rounded-lg">
                   <div className="text-center flex flex-col items-center justify-center text-orange-500 h-full">
                     <p className="text-sm font-bold">{el.original_title}</p>
                     <button
