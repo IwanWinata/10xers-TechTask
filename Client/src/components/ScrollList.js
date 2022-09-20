@@ -39,20 +39,20 @@ const ScrollList = ({ el, fetchMyList }) => {
 
   const addHandler = async (id) => {
     try {
-        let myList = localStorage.getItem("myList");
-        if (!myList) {
-          let foundMovie = await findMovie(id);
-          localStorage.setItem("myList", JSON.stringify([foundMovie]));
-          fetchMyList()
-        } else {
-          myList = JSON.parse(myList);
-          let foundMovie = await findMovie(id);
-          myList.push(foundMovie);
-          localStorage.setItem("myList", JSON.stringify(myList));
-          fetchMyList()
-        }
+      let myList = localStorage.getItem("myList");
+      if (!myList) {
+        let foundMovie = await findMovie(id);
+        localStorage.setItem("myList", JSON.stringify([foundMovie]));
+        fetchMyList();
+      } else {
+        myList = JSON.parse(myList);
+        let foundMovie = await findMovie(id);
+        myList.push(foundMovie);
+        localStorage.setItem("myList", JSON.stringify(myList));
+        fetchMyList();
+      }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   };
 
@@ -71,31 +71,37 @@ const ScrollList = ({ el, fetchMyList }) => {
           id={`scrollGenre${el.id}`}
           className="h-full w-full whitespace-nowrap overflow-hidden scroll-smooth"
         >
-          {movies.map((el, idx) => (
-            <div
-              key={idx}
-              className="w-[220px] h-[300px] inline-block p-2 group perspective"
-            >
-              <div className="w-full h-full object-contain cursor-pointer group-hover:my-rotate-y-180 preserve-3d ease-in-out duration-1000">
-                <img
-                  className="absolute w-full h-full backface-hidden border-2 rounded-lg"
-                  src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${el.backdrop_path}`}
-                  alt="/"
-                />
-                <div className="absolute my-rotate-y-180 w-full h-full backface-hidden bg-gray-200 rounded-lg">
-                  <div className="text-center flex flex-col items-center justify-center text-orange-500 h-full">
-                    <p className="text-sm font-bold">{el.original_title}</p>
-                    <button
-                      onClick={() => addHandler(el.id)}
-                      className="mt-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-                    >
-                      Add To My List
-                    </button>
+          {movies || movies.length !== 0 ? (
+            movies.map((el, idx) => (
+              <div
+                key={idx}
+                className="w-[220px] h-[300px] inline-block p-2 group perspective"
+              >
+                <div className="w-full h-full object-contain cursor-pointer group-hover:my-rotate-y-180 preserve-3d ease-in-out duration-1000">
+                  <img
+                    className="absolute w-full h-full backface-hidden border-2 rounded-lg"
+                    src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${el.backdrop_path}`}
+                    alt="/"
+                  />
+                  <div className="absolute my-rotate-y-180 w-full h-full backface-hidden bg-gray-200 rounded-lg">
+                    <div className="text-center flex flex-col items-center justify-center text-orange-500 h-full">
+                      <p className="text-sm font-bold">{el.original_title}</p>
+                      <button
+                        onClick={() => addHandler(el.id)}
+                        className="mt-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
+                      >
+                        Add To My List
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p className="text-center font-bold text-xl text-black">
+              Nothing here! Scroll to discover more
+            </p>
+          )}
         </div>
         <MdChevronRight onClick={scrollRight} size={40} />
       </div>
