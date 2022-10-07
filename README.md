@@ -1,4 +1,4 @@
-# 10xers-TechTask
+# movs
 1. Making the template 
 2. Testing the API 
 3. Fetch genres
